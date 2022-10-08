@@ -24,7 +24,6 @@ public class Department {
     private int deleted;
 
     @OneToMany(mappedBy = "department", fetch = FetchType.EAGER)
-    @JsonManagedReference
     private List<Course> courses = new ArrayList<>();
 
 }

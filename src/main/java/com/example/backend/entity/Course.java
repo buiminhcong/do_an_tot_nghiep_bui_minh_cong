@@ -32,8 +32,8 @@ public class Course {
     private Module module;
 
     @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false, referencedColumnName = "id")
-    @JsonBackReference
+    @JoinColumn(name = "department_id", nullable = false)
+    @JsonIgnore
     private Department department;
 
 }
