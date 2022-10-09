@@ -1,11 +1,11 @@
 package com.example.backend.service.serviceImpl;
 
+import com.example.backend.dto.ClassRequest;
 import com.example.backend.entity.*;
 import com.example.backend.entity.Class;
-import com.example.backend.entity.ga.Data;
-import com.example.backend.entity.ga.GeneticAlgorithm;
-import com.example.backend.entity.ga.Population;
-import com.example.backend.entity.ga.Schedule;
+import com.example.backend.entity.ga.*;
+import com.example.backend.repository.ClassRepository;
+import com.example.backend.repository.ScheduleRepository;
 import com.example.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +30,12 @@ public class ScheduleServiceImpl implements ScheduleService{
 
     @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
+    private ScheduleRepository scheduleRepository;
+
+    @Autowired
+    private ClassService classService;
 
     public static final int POPULATION_SIZE = 9; // Size của quần thể khởi tạo 1 thế hệ có 9 quần thể
     public static final double MUTATION_RATE = 0.1; // tỷ lệ đột biến
@@ -104,6 +110,15 @@ public class ScheduleServiceImpl implements ScheduleService{
             result.add(population);
         }
         Population p = result.get(result.size()-1);
+        Schedule schedule = p.getSchedules().get(0);
+
+
+
+        ScheduleEntity scheduleEntity = new ScheduleEntity();
+        scheduleEntity.setDeleted(0);
+        scheduleEntity.setClasses(schedule.getClasses());
+
+        scheduleRepository.save(scheduleEntity);
         return (Schedule) p.getSchedules().get(0);
     }
 

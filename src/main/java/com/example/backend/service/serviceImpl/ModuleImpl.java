@@ -7,6 +7,8 @@ import com.example.backend.service.ModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class ModuleImpl implements ModuleService {
 
@@ -21,5 +23,11 @@ public class ModuleImpl implements ModuleService {
         }
 
         throw new NotFoundException("Not found module with id: "+ id);
+    }
+
+    @Override
+    public List<Module> getAllModule() {
+
+        return moduleRepository.getListModule();
     }
 }

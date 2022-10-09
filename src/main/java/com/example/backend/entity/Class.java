@@ -32,7 +32,7 @@ public class Class {
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
-    @JsonIgnore
+//    @JsonIgnore
     private ScheduleEntity schedule;
 
     private int deleted;
@@ -41,6 +41,16 @@ public class Class {
         this.id = id;
         this.dept = dept;
         this.course = course;
+    }
+
+    public Class(Department dept, Course course, Instructor instructor,
+                 MeetingTime meetingTime, Room room, ScheduleEntity schedule) {
+        this.dept = dept;
+        this.course = course;
+        this.instructor = instructor;
+        this.meetingTime = meetingTime;
+        this.room = room;
+        this.schedule = schedule;
     }
 
     public Class() {
