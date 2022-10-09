@@ -3,6 +3,7 @@ package com.example.backend.entity.ga;
 import com.example.backend.entity.Class;
 import com.example.backend.entity.Department;
 import com.example.backend.entity.Instructor;
+import com.example.backend.entity.InstructorCourse;
 import com.example.backend.repository.InstructorCourseRepository;
 import com.example.backend.service.InstructorService;
 import com.example.backend.service.serviceImpl.InstructorServiceImpl;
@@ -58,8 +59,13 @@ public class Schedule {
                 //set ngẫu nhiên giáo viên vào trong từng khóa học
 
                 System.out.println("oooooooooookokokoko");
-                List<Instructor> listInstructorOfCourse =
-                        this.instructorService.getListInstructorByIdCourse(course.getId());
+
+                List<Instructor> listInstructorOfCourse =new ArrayList<>();
+
+                List<InstructorCourse> list1 = course.getInstructorCourses();
+                for(InstructorCourse c : list1){
+                    listInstructorOfCourse.add(c.getInstructor());
+                }
                 System.out.println(listInstructorOfCourse.size());
                 newClass.setInstructor(listInstructorOfCourse.get(
                         (int) (listInstructorOfCourse.size() * Math.random())));

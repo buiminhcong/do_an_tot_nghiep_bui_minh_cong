@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,5 +36,9 @@ public class Course {
     @JoinColumn(name = "department_id", nullable = false)
     @JsonIgnore
     private Department department;
+
+    @OneToMany(mappedBy = "course", fetch = FetchType.EAGER)
+    @JsonIgnore
+    private List<InstructorCourse> instructorCourses;
 
 }

@@ -96,7 +96,7 @@ public class ScheduleServiceImpl implements ScheduleService{
                     " |  " + schedule.getNumberOfConflicts()
             ));
             classNumb = 1;
-            printScheduleTable(population.getSchedules().get(0), generationNumber);
+//            printScheduleTable(population.getSchedules().get(0), generationNumber);
             return (Schedule) population.getSchedules().get(0);
         }
 
@@ -114,7 +114,7 @@ public class ScheduleServiceImpl implements ScheduleService{
             int majorIndex = data.getDepartments().indexOf(x.getDept());
             int courseIndex =data.getCourses().indexOf(x.getCourse());
             int roomsIndex = data.getRooms().indexOf(x.getRoom());
-            int instructorsIndex = data.getInstructors().indexOf(x.getInstructor());
+//            int instructorsIndex = data.getInstructors().indexOf(x.getInstructor());
             int meetingTimeIndex = data.getMeetingTimes().indexOf(x.getMeetingTime());
             System.out.print("      ");
             System.out.print(String.format("  %1$02d ", classNumb)+" | ");
@@ -124,8 +124,8 @@ public class ScheduleServiceImpl implements ScheduleService{
                     x.getCourse().getMaxNumbOfStudents()+"("+x.getCourse().getMaxNumbOfStudents())+")           | ");
             System.out.print(String.format("%1$10s", data.getRooms().get(roomsIndex).getNumber() +
                     " ("+x.getRoom().getSeatingCapacity()) +")     | " );
-            System.out.print(String.format("%1$15s", data.getInstructors().get(instructorsIndex).getUser().getName() +
-                    " ("+data.getInstructors().get(instructorsIndex).getId()+")") +"   |  ");
+//            System.out.print(String.format("%1$15s", data.getInstructors().get(instructorsIndex).getUser().getName() +
+//                    " ("+data.getInstructors().get(instructorsIndex).getId()+")") +"   |  ");
             System.out.println(data.getMeetingTimes().get(meetingTimeIndex).getName()+
                     " ("+data.getMeetingTimes().get(meetingTimeIndex).getId()+")");
             System.out.println("---");
