@@ -26,4 +26,6 @@ public class User {
     @OneToOne
     private Address address;
 
+    private int deleted;
+
 }
