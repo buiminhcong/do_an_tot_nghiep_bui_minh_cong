@@ -33,7 +33,7 @@ public class InstructorCourseServiceImpl implements InstructorCourseService {
 
     @Override
     public List<InstructorCourse> getListInstructorCourse() {
-        return instructorCourseRepository.getListCourse();
+        return instructorCourseRepository.getListCourseInstructor();
     }
 
     @Override

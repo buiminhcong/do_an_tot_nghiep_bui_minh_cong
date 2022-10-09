@@ -9,7 +9,8 @@ import java.util.List;
 
 @Repository
 public interface DepartmentRepository extends JpaRepository<Department, Integer> {
-//    @Query()
-//    List<Department> getListDepartment();
+
+    @Query(value = "select *  from department where deleted = 0 ;", nativeQuery = true)
+    List<Department> getListDepartment();
 
 }

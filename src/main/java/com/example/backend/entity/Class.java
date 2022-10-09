@@ -1,8 +1,19 @@
 package com.example.backend.entity;
 
+import com.example.backend.entity.ga.Schedule;
+import com.example.backend.entity.ga.ScheduleEntity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
 import javax.persistence.*;
 
 @Entity
+@Getter
+@Setter
+@AllArgsConstructor
 public class Class {
 
     @Id
@@ -18,6 +29,11 @@ public class Class {
     private MeetingTime meetingTime;
     @OneToOne
     private Room room;
+
+    @ManyToOne
+    @JoinColumn(name = "schedule_id", nullable = false)
+    @JsonIgnore
+    private ScheduleEntity schedule;
 
     private int deleted;
 
@@ -86,9 +102,9 @@ public class Class {
         this.room = room;
     }
 
-    @Override
-    public String toString() {
-        return "[" + dept.getName() + "," + course.getNumber() + "," + room.getNumber() + "," + instructor.getId() + "," + meetingTime.getId() + "]";
-    }
+//    @Override
+//    public String toString() {
+//        return "[" + dept.getName() + "," + course.getNumber() + "," + room.getNumber() + "," + instructor.getId() + "," + meetingTime.getId() + "]";
+//    }
 
 }

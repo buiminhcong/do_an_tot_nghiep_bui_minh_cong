@@ -1,6 +1,7 @@
 package com.example.backend.entity.ga;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class GeneticAlgorithm {
@@ -70,7 +71,7 @@ public class GeneticAlgorithm {
     //
     Population mutatePopulation(Population population) {
         Population mutatePopulation = new Population(population.getSchedules().size(), data);
-        ArrayList<Schedule> schedules = mutatePopulation.getSchedules();
+        List<Schedule> schedules = mutatePopulation.getSchedules();
         //Duyệt các cá thể ưu tú để đột biến
         IntStream.range(0, Driver.NUMBER_OF_ELITE_SCHEDULE).forEach(x ->
                 // giữ nguyên các cá thể tốt nhất ưu tú nhất vào trong quần thể đột biến

@@ -1,11 +1,12 @@
 package com.example.backend.entity.ga;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.stream.IntStream;
 
 public class Population {
 
-    private ArrayList<Schedule> schedules;
+    private List<Schedule> schedules;
 
     public Population(int size, Data data) {  // ==> Bước 1: khởi tạo quần thể số lượng và dữ liệu
         schedules = new ArrayList<Schedule>(size);
@@ -14,7 +15,7 @@ public class Population {
         IntStream.range(0, size).forEach(x -> schedules.add(new Schedule(data).initialize()));
     }
 
-    public ArrayList<Schedule> getSchedules() { // lấy ra danh sách quần thể
+    public List<Schedule> getSchedules() { // lấy ra danh sách quần thể
         return schedules;
     }
 
