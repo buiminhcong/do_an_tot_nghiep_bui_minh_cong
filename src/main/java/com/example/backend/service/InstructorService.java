@@ -22,4 +22,6 @@ public interface InstructorService {
 
     List<Instructor> getListInstructorByIdCourse(int id_course);
 
+    List<Instructor> getListInstructorByIdSubject(int id_subject);
+
 }

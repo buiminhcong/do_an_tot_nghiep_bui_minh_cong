@@ -28,4 +28,8 @@ public class InstructorCourse {
 
     private int deleted;
 
+    public InstructorCourse(Course course, Instructor instructor) {
+        this.course = course;
+        this.instructor = instructor;
+    }
 }

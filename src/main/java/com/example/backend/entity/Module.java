@@ -24,7 +24,7 @@ public class Module {
     private int deleted;
 
     @ManyToOne
-    @JsonIgnore
+
     private Subject subject;
 
 }

@@ -81,6 +81,9 @@ public class ScheduleServiceImpl implements ScheduleService{
 
         classNumb = 1;
         // nếu chưa có cá thể tốt chạy tiếp thuật toán
+
+        List<Population> result  = new ArrayList<>();
+
         while (population.getSchedules().get(0).getFitness() != 1){
             System.out.println(">Generation # " + ++generationNumber);
             System.out.print("  Schedule # |              ");
@@ -97,10 +100,11 @@ public class ScheduleServiceImpl implements ScheduleService{
             ));
             classNumb = 1;
 //            printScheduleTable(population.getSchedules().get(0), generationNumber);
-            return (Schedule) population.getSchedules().get(0);
+            population.getSchedules().get(0).setGenaration(generationNumber);
+            result.add(population);
         }
-
-        return null;
+        Population p = result.get(result.size()-1);
+        return (Schedule) p.getSchedules().get(0);
     }
 
     private void printScheduleTable(Schedule schedule, int generation){

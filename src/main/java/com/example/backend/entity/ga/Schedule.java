@@ -7,6 +7,7 @@ import com.example.backend.entity.InstructorCourse;
 import com.example.backend.repository.InstructorCourseRepository;
 import com.example.backend.service.InstructorService;
 import com.example.backend.service.serviceImpl.InstructorServiceImpl;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -29,6 +30,9 @@ public class Schedule {
 
     private int numberOfConflicts = 0; // số  lượng xung đột
 
+    private int genaration = 0;
+
+    @JsonIgnore
     private Data data; // Dữ liệu đầu vào
 
     @Autowired
@@ -58,7 +62,6 @@ public class Schedule {
 
                 //set ngẫu nhiên giáo viên vào trong từng khóa học
 
-                System.out.println("oooooooooookokokoko");
 
                 List<Instructor> listInstructorOfCourse =new ArrayList<>();
 
@@ -66,7 +69,6 @@ public class Schedule {
                 for(InstructorCourse c : list1){
                     listInstructorOfCourse.add(c.getInstructor());
                 }
-                System.out.println(listInstructorOfCourse.size());
                 newClass.setInstructor(listInstructorOfCourse.get(
                         (int) (listInstructorOfCourse.size() * Math.random())));
 
@@ -93,6 +95,14 @@ public class Schedule {
             isFitnessChanged = false;
         }
         return fitness;
+    }
+
+    public int getGenaration() {
+        return genaration;
+    }
+
+    public void setGenaration(int genaration) {
+        this.genaration = genaration;
     }
 
     // tính toán đánh giá thể trạng => b2 đánh giá năng lực độ thích nghi của từng cá thể

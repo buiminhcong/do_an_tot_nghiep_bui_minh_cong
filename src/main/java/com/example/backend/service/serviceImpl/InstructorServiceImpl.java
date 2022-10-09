@@ -105,4 +105,9 @@ public class InstructorServiceImpl implements InstructorService {
         }
         throw new NotFoundException("Not found instructor in course with id "+ id_course );
     }
+
+    @Override
+    public List<Instructor> getListInstructorByIdSubject(int id_subject) {
+        return repository.findListInstructorBySubject(id_subject);
+    }
 }

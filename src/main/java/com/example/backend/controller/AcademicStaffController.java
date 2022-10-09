@@ -1,18 +1,14 @@
 package com.example.backend.controller;
 
+import com.example.backend.dto.CourseRequest;
 import com.example.backend.entity.Course;
 import com.example.backend.entity.Department;
+import com.example.backend.entity.Instructor;
 import com.example.backend.entity.ga.Schedule;
 import com.example.backend.repository.DepartmentRepository;
-import com.example.backend.service.CourseService;
-import com.example.backend.service.DepartmentService;
-import com.example.backend.service.InstructorCourseService;
-import com.example.backend.service.ScheduleService;
+import com.example.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -42,7 +38,7 @@ public class AcademicStaffController {
         return courseService.getCourseById(id);
     }
 
-    @GetMapping("/d")
+    @GetMapping("/department")
     public List<Department> getAllCourse(){
         return departmentService.getListDepartment();
     }
@@ -50,6 +46,20 @@ public class AcademicStaffController {
     @GetMapping("/ok")
     public Schedule gaSchedule(){
         return scheduleService.gaSchedule();
+    }
+    @PostMapping("/create")
+    public Course createCourse( @RequestBody CourseRequest request){
+        return courseService.createCourse(request);
+    }
+
+    @GetMapping("/remove/{id}")
+    public Boolean removeCourse( @PathVariable("id") int id ){
+        return courseService.removeCourseById(id);
+    }
+
+    @PostMapping("/update/{id}")
+    public Course updateCourse(@PathVariable("id") int id, @RequestBody CourseRequest request){
+        return courseService.updateCourse(request, id);
     }
 
 }

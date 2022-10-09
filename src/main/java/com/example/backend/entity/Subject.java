@@ -22,6 +22,7 @@ public class Subject {
     private int deleted;
 
     @ManyToOne
+    @JsonIgnore
     private Department department;
 
 }
