@@ -62,7 +62,6 @@ public class Schedule {
 
                 //set ngẫu nhiên giáo viên vào trong từng khóa học
 
-
                 List<Instructor> listInstructorOfCourse =new ArrayList<>();
 
                 List<InstructorCourse> list1 = course.getInstructorCourses();

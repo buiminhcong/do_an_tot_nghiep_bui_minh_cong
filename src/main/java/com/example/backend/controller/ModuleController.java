@@ -3,6 +3,7 @@ package com.example.backend.controller;
 import com.example.backend.entity.Module;
 import com.example.backend.service.ModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("api/module")
+@CrossOrigin("http://localhost:4200/")
 public class ModuleController {
 
     @Autowired
