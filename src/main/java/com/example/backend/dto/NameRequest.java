@@ -14,6 +14,7 @@ public class NameRequest {
     @NotBlank(message = "First name request")
     private String firstName;
 
+    @NotBlank(message = "Last name request")
     private String lastName;
 
     private String middleName;

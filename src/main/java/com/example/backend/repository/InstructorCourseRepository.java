@@ -17,4 +17,8 @@ public interface InstructorCourseRepository extends JpaRepository<InstructorCour
     @Query(value = "select * from instructor_course where deleted = 0", nativeQuery = true)
     List<InstructorCourse> getListCourseInstructor();
 
+    @Query(value = "select * from instructor_course where instructor_id = ?  and deleted = 0",
+            nativeQuery = true)
+    List<InstructorCourse> getListCourseByIdTeacher(int id);
+
 }

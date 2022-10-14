@@ -1,6 +1,7 @@
 package com.example.backend.service;
 
 import com.example.backend.dto.InstructorRequest;
+import com.example.backend.dto.TeacherRequest;
 import com.example.backend.entity.Instructor;
 import org.springframework.stereotype.Service;
 
@@ -12,9 +13,9 @@ public interface InstructorService {
 
     List<Instructor> getListInstructor();
 
-    Instructor createInstructor(InstructorRequest instructorRequest);
+    Instructor createInstructor(TeacherRequest request);
 
-    Instructor updateInstructor(int id, InstructorRequest instructorRequest);
+    Instructor updateInstructor(int id, TeacherRequest request);
 
     Instructor findInstructorByCode(String code);
 

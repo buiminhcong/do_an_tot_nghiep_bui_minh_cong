@@ -16,4 +16,9 @@ public interface CourseRepository extends JpaRepository<Course, Integer> {
     @Query(value = "select * from course where deleted = 0 and id = ?", nativeQuery = true)
     Course getCourseById(int id);
 
+    @Query(value = " select * from course where department_id = ? and deleted = 0;", nativeQuery = true)
+    List<Course> getListCourseByIdDepartment(int id);
+
+
+
 }

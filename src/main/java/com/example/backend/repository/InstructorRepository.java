@@ -16,6 +16,8 @@ public interface InstructorRepository extends JpaRepository<Instructor, Integer>
     @Query(value = "select * from instructor where deleted = 0 and code = ? ", nativeQuery = true)
     Instructor findInstructorByCode(String code);
 
+    @Query(value = "select * from instructor where deleted = 0 and id = ? ", nativeQuery = true)
+    Instructor findInstructorByID(int  id);
 
     @Query(value = "select * from instructor where subject_id = ? and deleted = 0;", nativeQuery = true)
     List<Instructor> findListInstructorBySubject(int subject_id);

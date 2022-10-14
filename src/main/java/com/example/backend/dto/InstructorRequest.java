@@ -17,7 +17,7 @@ public class InstructorRequest {
     private String code;
 
     @NotBlank(message = "Subject request")
-    private Subject subject;
+    private int id_subject;
 
     @NotBlank(message = "User request")
     private User user;
