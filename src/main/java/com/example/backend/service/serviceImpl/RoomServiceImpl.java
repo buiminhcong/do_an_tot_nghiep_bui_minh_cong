@@ -31,27 +31,42 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public Room createRoom(RoomRequest roomDTO) throws AlreadyExistException {
+    public Room createRoom(RoomRequest roomDTO) throws NotFoundException {
         Room r = roomRepository.findRoomByNumber(roomDTO.getNumber());
         if (r == null) {
             Room room = mapper.map(roomDTO, Room.class);
             room.setDeleted(0);
             return roomRepository.save(room);
         } else {
-            throw new AlreadyExistException("Room " + roomDTO.getNumber() + " is already!");
+            throw new NotFoundException("Room " + roomDTO.getNumber() + " is already!");
         }
     }
 
     @Override
     public Room updateRoom(int id, RoomRequest roomRequest) throws NotFoundException{
         Optional<Room> optionalRoom = roomRepository.findById(id);
+        Optional<Room> r = Optional.ofNullable(roomRepository.findRoomByNumber(roomRequest.getNumber()));
         if (optionalRoom.isPresent()) {
-            Room r1 = optionalRoom.get();
-            r1.setNote(roomRequest.getNote());
-            r1.setNumber(roomRequest.getNumber());
-            r1.setSeatingCapacity(roomRequest.getSeatingCapacity());
-            roomRepository.save(r1);
-            return r1;
+            if(!r.isPresent()){
+                Room r1 = optionalRoom.get();
+                r1.setNote(roomRequest.getNote());
+                r1.setNumber(roomRequest.getNumber());
+                r1.setSeatingCapacity(roomRequest.getSeatingCapacity());
+                roomRepository.save(r1);
+                return r1;
+            }else {
+                Room r1 = r.get();
+                if(r1.getNumber().equals(roomRequest.getNumber())){
+                    r1.setNote(roomRequest.getNote());
+                    r1.setNumber(roomRequest.getNumber());
+                    r1.setSeatingCapacity(roomRequest.getSeatingCapacity());
+                    roomRepository.save(r1);
+                    return r1;
+                }else {
+                    throw new NotFoundException("room name: "+ roomRequest.getNumber() + " exits");
+                }
+            }
+
         }
         throw new NotFoundException("room id: "+ id + " not found");
     }

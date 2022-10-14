@@ -12,7 +12,12 @@ public interface ModuleRepository extends JpaRepository<Module, Integer> {
 
     @Query(value = "select * from module where id = ? and deleted = 0;", nativeQuery = true)
     Module findModuleById(int id);
+
+    @Query(value = "select * from module where module_code = ? and deleted = 0;", nativeQuery = true)
+    Module findModuleByCode(String module_code);
     @Query(value = "select * from module where deleted = 0;", nativeQuery = true)
     List<Module> getListModule();
+
+
 
 }

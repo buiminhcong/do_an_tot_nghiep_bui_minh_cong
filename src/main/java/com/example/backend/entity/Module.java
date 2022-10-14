@@ -19,12 +19,13 @@ public class Module {
 
     private String name;
 
+    private String moduleCode;
+
     private int credits;
 
     private int deleted;
 
     @ManyToOne
-
     private Subject subject;
 
 }
