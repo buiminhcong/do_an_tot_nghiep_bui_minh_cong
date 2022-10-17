@@ -19,7 +19,7 @@ public interface InstructorService {
 
     Instructor findInstructorByCode(String code);
 
-    Instructor removeInstructorById(int id);
+    Boolean removeInstructorById(int id);
 
     List<Instructor> getListInstructorByIdCourse(int id_course);
 

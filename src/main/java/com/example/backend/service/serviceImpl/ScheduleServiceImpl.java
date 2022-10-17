@@ -122,38 +122,4 @@ public class ScheduleServiceImpl implements ScheduleService{
         return (Schedule) p.getSchedules().get(0);
     }
 
-    private void printScheduleTable(Schedule schedule, int generation){
-        List<Class> classes = schedule.getClasses();
-        System.out.print("\n    ");
-        System.out.println("Class #  |     Dept     | Course (Numb, max # of students) | Room (Capacity) |  Instructor(ID)   | MeetingTime(ID)");
-        System.out.print("      ");
-        System.out.print("-----------------------------------------------------");
-        System.out.println("-----------------------------------------------------");
-        classes.forEach(x->{
-            int majorIndex = data.getDepartments().indexOf(x.getDept());
-            int courseIndex =data.getCourses().indexOf(x.getCourse());
-            int roomsIndex = data.getRooms().indexOf(x.getRoom());
-//            int instructorsIndex = data.getInstructors().indexOf(x.getInstructor());
-            int meetingTimeIndex = data.getMeetingTimes().indexOf(x.getMeetingTime());
-            System.out.print("      ");
-            System.out.print(String.format("  %1$02d ", classNumb)+" | ");
-            System.out.print(String.format("%1$4s", data.getDepartments().get(majorIndex).getName() + "  | "));
-            System.out.print(String.format("%1$21s", data.getCourses().get(courseIndex).getNumber()+", "+
-                    data.getCourses().get(courseIndex).getName()+", "+
-                    x.getCourse().getMaxNumbOfStudents()+"("+x.getCourse().getMaxNumbOfStudents())+")           | ");
-            System.out.print(String.format("%1$10s", data.getRooms().get(roomsIndex).getNumber() +
-                    " ("+x.getRoom().getSeatingCapacity()) +")     | " );
-//            System.out.print(String.format("%1$15s", data.getInstructors().get(instructorsIndex).getUser().getName() +
-//                    " ("+data.getInstructors().get(instructorsIndex).getId()+")") +"   |  ");
-            System.out.println(data.getMeetingTimes().get(meetingTimeIndex).getName()+
-                    " ("+data.getMeetingTimes().get(meetingTimeIndex).getId()+")");
-            System.out.println("---");
-            classNumb++;
-        });
-        if(schedule.getFitness() == 1){
-            System.out.println("> solution found in "+(generation+1)+" generations");
-            System.out.print("----------------------------------------------------");
-            System.out.println("----------------------------------------------------");
-        }
-    }
 }

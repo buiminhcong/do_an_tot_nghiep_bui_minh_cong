@@ -42,4 +42,9 @@ public class InstructorController {
         return instructorService.updateInstructor(id, request);
     }
 
+    @GetMapping("/remove/{id}")
+    public Boolean removeInstructor(@PathVariable("id") int id){
+        return instructorService.removeInstructorById(id);
+    }
+
 }

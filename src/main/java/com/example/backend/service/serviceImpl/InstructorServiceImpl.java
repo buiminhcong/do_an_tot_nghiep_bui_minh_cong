@@ -66,7 +66,6 @@ public class InstructorServiceImpl implements InstructorService {
                 Optional.ofNullable(instructorRepository.findInstructorByCode(request.getCode()));
 
         if (!op1.isPresent()) {
-
             Optional<Subject> op2 =
                     Optional.ofNullable(subjectRepository.findSubjectById(request.getId_subject()));
 
@@ -146,9 +145,9 @@ public class InstructorServiceImpl implements InstructorService {
     public Instructor updateInstructor(int id, TeacherRequest request) throws NotFoundException {
 
         Optional<Instructor> op = Optional.ofNullable(instructorRepository.findInstructorByID(id));
-        Instructor instructor = op.get();
-        if(op.isPresent()){
 
+        if(op.isPresent()){
+            Instructor instructor = op.get();
             Optional<Instructor> op1 =
                     Optional.ofNullable(instructorRepository.findInstructorByCode(request.getCode()));
 
@@ -159,9 +158,9 @@ public class InstructorServiceImpl implements InstructorService {
 
                 if (op2.isPresent()) {
 
-                    Optional<User> op3 = Optional.ofNullable(userRepository.findUserByUserName(request.getUsername()));
+                    Optional<User> op3 = Optional.ofNullable(userRepository.findUserByUserName(request.getUsername().trim()));
 
-                    if(!op3.isPresent() || op3.get().getUserName().equals(request.getUsername())){
+                    if(!op3.isPresent()){
                         // get subject by id
                         Subject subject = op2.get();
                         int dep_id = subject.getDepartment().getId();
@@ -219,6 +218,65 @@ public class InstructorServiceImpl implements InstructorService {
 
 
                     }else {
+                        if(request.getUsername().equals(instructor.getUser().getUserName())){
+
+                            System.out.println(instructor.getUser().getUserName());
+                            System.out.println(request.getUsername());
+
+                            Subject subject = op2.get();
+                            int dep_id = subject.getDepartment().getId();
+
+                            // update Name
+                            Name name = instructor.getUser().getName();
+                            name.setFirstName(request.getFirstName());
+                            name.setLastName(request.getLastName());
+                            name.setMiddleName(request.getMiddleName());
+                            nameRepository.save(name);
+
+                            //update address
+                            Address address = instructor.getUser().getAddress();
+                            address.setEmail(request.getEmail());
+                            address.setPhone(request.getPhone());
+                            address.setCity(request.getCity());
+                            addressRepository.save(address);
+
+                            // update user
+                            User user = instructor.getUser();
+                            user.setUserName(request.getUsername());
+                            user.setPassword(request.getPassword());
+                            user.setAddress(address);
+                            user.setName(name);
+                            userRepository.save(user);
+
+                            //get subject old
+                            Subject oldSubject = instructor.getSubject();
+
+                            //update teacher
+                            instructor.setSubject(subject);
+                            instructor.setCode(request.getCode());
+                            instructor.setUser(user);
+                            instructorRepository.save(instructor);
+
+                            if(oldSubject.getId() != subject.getId()){
+                                List<InstructorCourse> l1 =
+                                        instructorCourseRepository.getListCourseByIdTeacher(id);
+                                for(InstructorCourse c: l1){
+                                    c.setDeleted(1);
+                                }
+                                //get course by id subject
+                                List<Course> list = courseRepository.getListCourseByIdDepartment(dep_id);
+                                for(Course c : list){
+                                    InstructorCourse i = new InstructorCourse();
+                                    i.setDeleted(0);
+                                    i.setInstructor(instructor);
+                                    i.setCourse(c);
+                                    instructorCourseRepository.save(i);
+                                }
+                                return instructor;
+                            }else {
+                                return instructor;
+                            }
+                        }
                         throw new NotFoundException("Username is exits: " + request.getUsername());
                     }
 
@@ -236,7 +294,7 @@ public class InstructorServiceImpl implements InstructorService {
 
                         Optional<User> op3 = Optional.ofNullable(userRepository.findUserByUserName(request.getUsername()));
 
-                        if(!op3.isPresent() || op3.get().getUserName().equals(request.getUsername())){
+                        if(!op3.isPresent() ){
                             // get subject by id
                             Subject subject = op2.get();
                             int dep_id = subject.getDepartment().getId();
@@ -294,6 +352,65 @@ public class InstructorServiceImpl implements InstructorService {
 
 
                         }else {
+                            if(request.getUsername().equals(instructor.getUser().getUserName())){
+
+                                System.out.println(instructor.getUser().getUserName());
+                                System.out.println(request.getUsername());
+
+                                Subject subject = op2.get();
+                                int dep_id = subject.getDepartment().getId();
+
+                                // update Name
+                                Name name = instructor.getUser().getName();
+                                name.setFirstName(request.getFirstName());
+                                name.setLastName(request.getLastName());
+                                name.setMiddleName(request.getMiddleName());
+                                nameRepository.save(name);
+
+                                //update address
+                                Address address = instructor.getUser().getAddress();
+                                address.setEmail(request.getEmail());
+                                address.setPhone(request.getPhone());
+                                address.setCity(request.getCity());
+                                addressRepository.save(address);
+
+                                // update user
+                                User user = instructor.getUser();
+                                user.setUserName(request.getUsername());
+                                user.setPassword(request.getPassword());
+                                user.setAddress(address);
+                                user.setName(name);
+                                userRepository.save(user);
+
+                                //get subject old
+                                Subject oldSubject = instructor.getSubject();
+
+                                //update teacher
+                                instructor.setSubject(subject);
+                                instructor.setCode(request.getCode());
+                                instructor.setUser(user);
+                                instructorRepository.save(instructor);
+
+                                if(oldSubject.getId() != subject.getId()){
+                                    List<InstructorCourse> l1 =
+                                            instructorCourseRepository.getListCourseByIdTeacher(id);
+                                    for(InstructorCourse c: l1){
+                                        c.setDeleted(1);
+                                    }
+                                    //get course by id subject
+                                    List<Course> list = courseRepository.getListCourseByIdDepartment(dep_id);
+                                    for(Course c : list){
+                                        InstructorCourse i = new InstructorCourse();
+                                        i.setDeleted(0);
+                                        i.setInstructor(instructor);
+                                        i.setCourse(c);
+                                        instructorCourseRepository.save(i);
+                                    }
+                                    return instructor;
+                                }else {
+                                    return instructor;
+                                }
+                            }
                             throw new NotFoundException("Username is exits: " + request.getUsername());
                         }
 
@@ -327,14 +444,37 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public Instructor removeInstructorById(int id) throws NotFoundException {
+    public Boolean removeInstructorById(int id) throws NotFoundException {
 
-        Optional<Instructor> i = instructorRepository.findById(id);
-        if (i.isPresent()) {
-            return i.get();
-        } else {
-            throw new NotFoundException("Not found Instructor with code : " + id);
+        Optional<Instructor> op1 = Optional.ofNullable(instructorRepository.findInstructorByID(id));
+
+        if(op1.isPresent()){
+
+            Instructor instructor = op1.get();
+            instructor.setDeleted(1);
+
+            instructor.getUser().setDeleted(1);
+            instructor.getUser().getName().setDeleted(1);
+            instructor.getUser().getAddress().setDeleted(1);
+
+            UserRole userRole = userRoleRepository.getUserRoleByIdUser(instructor.getUser().getId());
+            userRole.setDeleted(1);
+            userRoleRepository.save(userRole);
+
+            List<InstructorCourse> list =
+                    instructorCourseRepository.getListCourseByIdTeacher(instructor.getId());
+            for(InstructorCourse i : list){
+                i.setDeleted(1);
+                instructorCourseRepository.save(i);
+            }
+            instructorRepository.save(instructor);
+
+            return true;
+        }else {
+            throw new NotFoundException("Not found instructor with id : "+ id);
         }
+
+
     }
 
     @Override

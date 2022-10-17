@@ -7,7 +7,10 @@ import com.example.backend.service.ClassService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 @Service
+@Transactional
 public class ClassServiceImpl implements ClassService {
 
     @Autowired
@@ -18,6 +21,7 @@ public class ClassServiceImpl implements ClassService {
 
         Class c = new Class(request.getDept(), request.getCourse(), request.getInstructor()
                 , request.getMeetingTime(), request.getRoom(), request.getSchedule());
+        c.setDeleted(0);
         return classRepository.save(c);
     }
 }
