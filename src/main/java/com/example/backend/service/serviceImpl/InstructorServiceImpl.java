@@ -496,4 +496,13 @@ public class InstructorServiceImpl implements InstructorService {
     public List<Instructor> getListInstructorByIdSubject(int id_subject) {
         return instructorRepository.findListInstructorBySubject(id_subject);
     }
+
+    @Override
+    public Instructor getInstructorByUserId(int id) throws NotFoundException{
+        Optional<Instructor> optional = Optional.ofNullable(instructorRepository.findInstructorByUserId(id));
+        if(optional.isPresent()){
+            return optional.get();
+        }
+        throw new NotFoundException("Not found instructor");
+    }
 }

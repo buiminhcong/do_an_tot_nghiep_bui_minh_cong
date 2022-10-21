@@ -32,7 +32,7 @@ public class Class {
 
     @ManyToOne
     @JoinColumn(name = "schedule_id", nullable = false)
-//    @JsonIgnore
+    @JsonIgnore
     private ScheduleEntity schedule;
 
     private int deleted;

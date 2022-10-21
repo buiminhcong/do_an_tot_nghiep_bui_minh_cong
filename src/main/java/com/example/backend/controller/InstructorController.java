@@ -1,7 +1,10 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.TeacherRequest;
+import com.example.backend.entity.Class;
 import com.example.backend.entity.Instructor;
+import com.example.backend.repository.ClassRepository;
+import com.example.backend.service.ClassService;
 import com.example.backend.service.InstructorCourseService;
 import com.example.backend.service.InstructorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +22,7 @@ public class InstructorController {
     private InstructorService instructorService;
 
     @Autowired
-    private InstructorCourseService instructorCourseService;
+    private ClassService classService;
 
     @GetMapping("")
     public List<Instructor> getListInstructor(){
@@ -45,6 +48,16 @@ public class InstructorController {
     @GetMapping("/remove/{id}")
     public Boolean removeInstructor(@PathVariable("id") int id){
         return instructorService.removeInstructorById(id);
+    }
+
+    @GetMapping("schedule/{id}")
+    public List<Class> getScheudleInstructor(@PathVariable("id") int id){
+        return classService.getScheduleByInstructor(id);
+    }
+
+    @GetMapping("user/{id}")
+    public Instructor getInstructorByUserId(@PathVariable("id") int id){
+        return instructorService.getInstructorByUserId(id);
     }
 
 }

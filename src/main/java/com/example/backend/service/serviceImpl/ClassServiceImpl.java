@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 @Service
 @Transactional
@@ -23,5 +24,11 @@ public class ClassServiceImpl implements ClassService {
                 , request.getMeetingTime(), request.getRoom(), request.getSchedule());
         c.setDeleted(0);
         return classRepository.save(c);
+    }
+
+    @Override
+    public List<Class> getScheduleByInstructor(int id) {
+        List<Class> list = classRepository.getScheduleByInstructor(id);
+        return list;
     }
 }

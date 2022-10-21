@@ -1,10 +1,13 @@
 package com.example.backend.controller;
 
 import com.example.backend.dto.CourseRequest;
+import com.example.backend.dto.ScheduleDTO;
+import com.example.backend.entity.Class;
 import com.example.backend.entity.Course;
 import com.example.backend.entity.Department;
 import com.example.backend.entity.Instructor;
 import com.example.backend.entity.ga.Schedule;
+import com.example.backend.entity.ga.ScheduleEntity;
 import com.example.backend.repository.DepartmentRepository;
 import com.example.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +48,7 @@ public class AcademicStaffController {
     }
 
     @GetMapping("/ok")
-    public Schedule gaSchedule(){
+    public ScheduleDTO gaSchedule(){
         return scheduleService.gaSchedule();
     }
     @PostMapping("/create")
@@ -63,4 +66,18 @@ public class AcademicStaffController {
         return courseService.updateCourse(request, id);
     }
 
+    @GetMapping("/schedule/{id}")
+    public ScheduleEntity getScheduleById( @PathVariable ("id") int id){
+        return scheduleService.getScheduleById(id);
+    }
+
+    @PostMapping("/schedule/create")
+    public ScheduleEntity createSchedule(@RequestBody List<Class> list){
+        return scheduleService.createSchedule(list);
+    }
+
+    @GetMapping("/schedule")
+    public ScheduleEntity getSchedule(){
+        return scheduleService.getSchedule();
+    }
 }
