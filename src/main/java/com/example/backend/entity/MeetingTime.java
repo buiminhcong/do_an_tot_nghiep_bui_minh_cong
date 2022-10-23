@@ -22,5 +22,11 @@ public class MeetingTime {
 
     private String name;
 
+    private String date;
+
+    private String kip;
+
+    private String time;
+
     private int deleted;
 }
