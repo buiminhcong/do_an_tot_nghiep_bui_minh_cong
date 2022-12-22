@@ -2,12 +2,10 @@ package com.example.backend.service.serviceImpl;
 
 import com.example.backend.dto.CourseRequest;
 import com.example.backend.entity.*;
+import com.example.backend.entity.Class;
 import com.example.backend.entity.Module;
 import com.example.backend.exception.NotFoundException;
-import com.example.backend.repository.CourseRepository;
-import com.example.backend.repository.InstructorCourseRepository;
-import com.example.backend.repository.InstructorRepository;
-import com.example.backend.repository.ModuleRepository;
+import com.example.backend.repository.*;
 import com.example.backend.service.CourseService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +32,9 @@ public class CourseServiceImpl implements CourseService {
 
     @Autowired
     private ModuleRepository moduleRepository;
+
+    @Autowired
+    private ClassRepository classRepository;
 
 
     @Override
@@ -120,6 +121,10 @@ public class CourseServiceImpl implements CourseService {
         if(optional.isPresent()){
             Course course = optional.get();
             course.setDeleted(1);
+
+            Class c = classRepository.getClassByIdCourse(course.getId());
+            c.setDeleted(1);
+            classRepository.save(c);
 
             List<InstructorCourse> list = instructorCourseRepository.getInstructorCourseByIdCourse(id);
             for(InstructorCourse i : list){

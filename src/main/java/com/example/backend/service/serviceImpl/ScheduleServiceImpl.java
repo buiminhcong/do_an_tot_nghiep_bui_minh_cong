@@ -164,7 +164,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
         Optional<ScheduleEntity> optional = Optional.ofNullable(scheduleRepository.findSchedule());
         if(optional.isPresent()){
-            return optional.get();
+            ScheduleEntity sc = optional.get();
+            return sc;
         }
         throw new NotFoundException("Not found schedule");
     }

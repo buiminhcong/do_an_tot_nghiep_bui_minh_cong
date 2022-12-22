@@ -114,6 +114,8 @@ public class ModuleImpl implements ModuleService {
             Module module = optional.get();
             module.setDeleted(1);
             moduleRepository.save(module);
+
+
             return true;
         }
         throw new NotFoundException("Not found module with code: " + id);

@@ -2,6 +2,7 @@ package com.example.backend.service.serviceImpl;
 
 import com.example.backend.dto.TeacherRequest;
 import com.example.backend.entity.*;
+import com.example.backend.entity.Class;
 import com.example.backend.exception.NotFoundException;
 import com.example.backend.repository.*;
 import com.example.backend.service.InstructorService;
@@ -47,6 +48,9 @@ public class InstructorServiceImpl implements InstructorService {
 
     @Autowired
     private CourseRepository courseRepository;
+
+    @Autowired
+    private ClassRepository classRepository;
 
 //    public InstructorServiceImpl(InstructorCourseRepository instructorCourseRepository){
 //        this.instructorCourseRepository = instructorCourseRepository;
@@ -453,6 +457,12 @@ public class InstructorServiceImpl implements InstructorService {
             Instructor instructor = op1.get();
             instructor.setDeleted(1);
 
+            List<Class> classes = classRepository.getScheduleByInstructor(instructor.getId());
+            for(Class c: classes){
+                c.setDeleted(1);
+                classRepository.save(c);
+            }
+
             instructor.getUser().setDeleted(1);
             instructor.getUser().getName().setDeleted(1);
             instructor.getUser().getAddress().setDeleted(1);
@@ -464,8 +474,9 @@ public class InstructorServiceImpl implements InstructorService {
             List<InstructorCourse> list =
                     instructorCourseRepository.getListCourseByIdTeacher(instructor.getId());
             for(InstructorCourse i : list){
-                i.setDeleted(1);
+                i.setDeleted(2);
                 instructorCourseRepository.save(i);
+                instructorCourseRepository.deleteById(i.getId());
             }
             instructorRepository.save(instructor);
 

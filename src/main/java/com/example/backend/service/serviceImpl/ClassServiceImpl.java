@@ -1,6 +1,9 @@
 package com.example.backend.service.serviceImpl;
 
 import com.example.backend.dto.ClassRequest;
+import com.example.backend.dto.statistic.InstructorStatistic;
+import com.example.backend.dto.statistic.MeetingStatistic;
+import com.example.backend.dto.statistic.RoomStatic;
 import com.example.backend.entity.Class;
 import com.example.backend.repository.ClassRepository;
 import com.example.backend.service.ClassService;
@@ -30,5 +33,21 @@ public class ClassServiceImpl implements ClassService {
     public List<Class> getScheduleByInstructor(int id) {
         List<Class> list = classRepository.getScheduleByInstructor(id);
         return list;
+    }
+
+
+    @Override
+    public List<RoomStatic> getRoomStatic() {
+        return classRepository.findRoomStatic();
+    }
+
+    @Override
+    public List<MeetingStatistic> getMeetingStatistic() {
+        return classRepository.findMeetingTime();
+    }
+
+    @Override
+    public List<InstructorStatistic> getInstructorStatistic() {
+        return classRepository.findInstructorStatistic();
     }
 }

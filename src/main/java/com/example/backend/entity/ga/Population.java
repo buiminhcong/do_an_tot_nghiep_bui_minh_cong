@@ -8,7 +8,7 @@ public class Population {
 
     private List<Schedule> schedules;
 
-    public Population(int size, Data data) {  // ==> Bước 1: khởi tạo quần thể số lượng và dữ liệu
+    public Population(int size, Data data) {  // ==> Bước 1: khởi tạo quần thể số lượng tkb và dữ liệu
         schedules = new ArrayList<Schedule>(size);
         // Tạo quần thể schedule
         // Thêm các scedule vào quần thể

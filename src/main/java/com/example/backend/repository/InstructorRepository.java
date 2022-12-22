@@ -23,6 +23,6 @@ public interface InstructorRepository extends JpaRepository<Instructor, Integer>
     List<Instructor> findListInstructorBySubject(int subject_id);
 
 
-    @Query(value = " select * from instructor where user_id = ? ", nativeQuery = true)
+    @Query(value = " select * from instructor where user_id = ? and deleted =0 ", nativeQuery = true)
     Instructor findInstructorByUserId(int id);
 }
